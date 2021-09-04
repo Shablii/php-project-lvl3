@@ -1,0 +1,20 @@
+name: Linter
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Upload_repo: 
+    runs-on: macos-latest
+    
+    steps:
+      - name: upload_repo
+        uses: actions/checkout@v2
+      
+      - name: composer_install
+        run: composer install
+    
+      - name: make_lint
+        run: make lint
