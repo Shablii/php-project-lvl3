@@ -15,5 +15,11 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+    "name": "myapp",
+    "description": "a really cool app",
+    "version": "1.0.0",
+    "engines": {
+      "node": "14.x"
     }
 }
