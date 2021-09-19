@@ -2,12 +2,8 @@
 
 install:
 	composer install
-validate:
-	composer validate
 lint:
-	composer run-script phpcs -- --standard=PSR12 app
-test_phpunit:
-	composer exec --verbose phpunit tests
+	composer run-script phpcs -- --standard=PSR12 app tests
 test:
 	php artisan test
 test-coverage:
@@ -22,3 +18,10 @@ setup:
 	npm install
 start:
 	php artisan serve
+deploy:
+	git push heroku main
+
+test_phpunit:
+	composer exec --verbose phpunit tests
+validate:
+	composer validate
