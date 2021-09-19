@@ -14,17 +14,11 @@ jobs:
       - name: upload_repo
         uses: actions/checkout@v2
 
-      - name: composer_install
-        run: composer install
-
-      - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-
-      - name: Generate key
-        run: php artisan key:generate
+      - name: sepup
+        run: make setup
 
       - name: Check lint
         run: make lint
 
       - name: Execute tests via PHPUnit
-        run: make test_phpunit
+        run: make test
