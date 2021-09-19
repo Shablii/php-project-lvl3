@@ -28,10 +28,18 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">Главная</a>
+                            <a class="nav-link 
+                            @if(parse_url(Request::url(), PHP_URL_PATH) !== '/urls')
+                                active
+                            @endif
+                            " href="/">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/urls">Сайты</a>
+                            <a class="nav-link
+                            @if(parse_url(Request::url(), PHP_URL_PATH) === '/urls')
+                                active
+                            @endif
+                            " href="/urls">Сайты</a>
                         </li>
                     </ul>
                 </div>

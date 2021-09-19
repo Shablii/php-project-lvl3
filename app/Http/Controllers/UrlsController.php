@@ -13,9 +13,11 @@ class UrlsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Urls $urls)
+    public function index(Urls $url)
     {
-        return view('Urls/index', ['urls' => $urls->all()]);
+        $urls = Urls::all();
+        return view('urls.index', compact('urls'));
+        //return view('Urls/index', ['urls' => $urls]);
     }
 
     /**
@@ -40,7 +42,7 @@ class UrlsController extends Controller
         $urls->save();
 
         return redirect()
-        ->route('urls.show', ['url' => $url->id])
+        ->route('urls.show', ['url' => $urls->id])
         ->with('success', 'Страница успешно добавлена');
     }
 

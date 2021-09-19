@@ -10,3 +10,11 @@ test:
 	composer exec --verbose phpunit tests
 test-coverage:
 	composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
+setup:
+	composer install
+	cp -n .env.example .env|| true
+	php artisan key:gen --ansi
+	touch database/database.sqlite
+	php artisan migrate
+	php artisan db:seed
+	npm install
