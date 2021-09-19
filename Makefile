@@ -5,7 +5,7 @@ install:
 validate:
 	composer validate
 lint:
-	composer run-script phpcs -- --standard=PSR12 src
+	composer run-script phpcs -- --standard=PSR12 app
 test:
 	composer exec --verbose phpunit tests
 test-coverage:

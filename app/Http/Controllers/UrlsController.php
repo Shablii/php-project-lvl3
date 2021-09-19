@@ -16,8 +16,8 @@ class UrlsController extends Controller
     public function index(Urls $url)
     {
         $urls = Urls::all();
-        return view('urls.index', compact('urls'));
-        //return view('Urls/index', ['urls' => $urls]);
+        //return view('urls.index', compact('urls'));
+        return view('Urls/index', ['urls' => $urls]);
     }
 
     /**
@@ -42,7 +42,7 @@ class UrlsController extends Controller
         $urls->save();
 
         return redirect()
-        ->route('urls.show', ['url' => $urls->id])
+        ->route('urls.show', $urls)
         ->with('success', 'Страница успешно добавлена');
     }
 
@@ -54,7 +54,7 @@ class UrlsController extends Controller
      */
     public function show(Urls $urls, $id)
     {
-        return view('urls.show', ['url' => $urls->find($id)]);
+        return view('show', ['url' => $urls->find($id)]);
     }
 
     /**
