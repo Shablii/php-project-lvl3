@@ -27,13 +27,13 @@ class UrlsTest extends TestCase
         $response->assertOk();
     }
 
-    public function testShow()
-    {
-        $factoryData = Urls::factory()->make();
-        $factoryData->save();
-        $response = $this->get(route('urls.show', ['url' => $factoryData->id]));
-        $response->assertOk();
-    }
+    //public function testShow()
+    //{
+    //    $factoryData = Urls::factory()->make();
+    //    $factoryData->save();
+    //    $response = $this->get(route('urls.show', ['url' => $factoryData->id]));
+    //    $response->assertOk();
+    //}
 
     public function testStore()
     {
