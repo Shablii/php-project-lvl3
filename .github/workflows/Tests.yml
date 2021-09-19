@@ -2,8 +2,9 @@ name: TestsLar
 
 on:
   push:
-    branches:
-      - main
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   Upload_repo: 
@@ -22,5 +23,5 @@ jobs:
       - name: Check lint
         run: make lint
 
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
+      - name: Execute tests via PHPUnit
         run: make test

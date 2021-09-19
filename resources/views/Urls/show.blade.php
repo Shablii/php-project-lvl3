@@ -26,7 +26,7 @@
             </table>
         </div>
         <h2 class="mt-5 mb-3">Проверки</h2>
-        <form method="post" action="/urls">
+        <form method="post" action="/urls/test">
             @csrf
             <input type="submit" class="btn btn-primary" value="Запустить проверку">
         </form>
@@ -152,14 +152,6 @@
                         <td></td>
                         <td>You bring the passion, we brin...</td>
                         <td>2021-04-05 00:18:14</td>
-                    </tr>
-                                    <tr>
-                        <td>177</td>
-                        <td>200</td>
-                        <td>You bring...</td>
-                        <td></td>
-                        <td>You bring the passion, we brin...</td>
-                        <td>2021-03-17 13:10:34</td>
                     </tr>
                             </table>
     </div>
