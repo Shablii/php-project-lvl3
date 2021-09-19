@@ -31,6 +31,7 @@ class UrlsTest extends TestCase
     {
         $factoryData = Urls::factory()->make();
         $factoryData->save();
+        var_dump($factoryData->id);
         $response = $this->get(route('urls.show', ['url' => $factoryData->id]));
         $response->assertOk();
     }

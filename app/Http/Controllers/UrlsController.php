@@ -54,7 +54,7 @@ class UrlsController extends Controller
      */
     public function show(Urls $urls, $id)
     {
-        return view('Urls/Show', ['url' => $urls->find($id)]);
+        return view('urls.show', ['url' => $urls->find($id)]);
     }
 
     /**

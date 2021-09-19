@@ -145,14 +145,6 @@
                         <td>You bring the passion, we brin...</td>
                         <td>2021-04-12 13:08:39</td>
                     </tr>
-                                    <tr>
-                        <td>229</td>
-                        <td>200</td>
-                        <td>You bring...</td>
-                        <td></td>
-                        <td>You bring the passion, we brin...</td>
-                        <td>2021-04-05 00:18:14</td>
-                    </tr>
                             </table>
     </div>
 </main>
