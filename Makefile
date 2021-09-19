@@ -18,3 +18,5 @@ setup:
 	php artisan migrate
 	php artisan db:seed
 	npm install
+start:
+	php artisan serve

@@ -1,4 +1,4 @@
-name: Linter
+name: TestsLar
 
 on:
   push:
@@ -15,6 +15,9 @@ jobs:
 
       - name: composer_install
         run: composer install
+
+      - name: Copy .env
+        run: php -r "copy('.env.example', '.env');"
 
       - name: Check lint
         run: make lint

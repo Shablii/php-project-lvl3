@@ -26,8 +26,9 @@
             </table>
         </div>
         <h2 class="mt-5 mb-3">Проверки</h2>
-        <form method="post" action="https://php-l3-page-analyzer.herokuapp.com/urls/3/checks">
-            <input type="hidden" name="_token" value="Tbzvkhcc8p9Rnl68dcHWYjiObjN4QBKgnQVEIeW7">            <input type="submit" class="btn btn-primary" value="Запустить проверку">
+        <form method="post" action="/urls">
+            @csrf
+            <input type="submit" class="btn btn-primary" value="Запустить проверку">
         </form>
                     <table class="table table-bordered table-hover text-nowrap">
                 <tr>
@@ -159,14 +160,6 @@
                         <td></td>
                         <td>You bring the passion, we brin...</td>
                         <td>2021-03-17 13:10:34</td>
-                    </tr>
-                                    <tr>
-                        <td>170</td>
-                        <td>200</td>
-                        <td>You bring...</td>
-                        <td></td>
-                        <td>You bring the passion, we brin...</td>
-                        <td>2021-03-14 20:08:11</td>
                     </tr>
                             </table>
     </div>
