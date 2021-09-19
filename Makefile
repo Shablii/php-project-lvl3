@@ -6,8 +6,10 @@ validate:
 	composer validate
 lint:
 	composer run-script phpcs -- --standard=PSR12 app
-test:
+test_phpunit:
 	composer exec --verbose phpunit tests
+test:
+	php artisan test
 test-coverage:
 	composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
 setup:

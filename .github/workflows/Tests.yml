@@ -18,7 +18,7 @@ jobs:
         run: composer install
 
       - name: Copy .env
-        run: run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Check lint
         run: make lint
