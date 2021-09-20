@@ -33,7 +33,6 @@
                     <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=7">7</a></li>
                     <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=8">8</a></li>
                     <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=9">9</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=10">10</a></li>
                     <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
                     <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=15">15</a></li>
                     <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=2" rel="next" aria-label="Next &raquo;">&rsaquo;</a></li>

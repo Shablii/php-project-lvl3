@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Urls;
+use App\Models\UrlChecks;
 
 class UrlsTest extends TestCase
 {
@@ -29,9 +30,10 @@ class UrlsTest extends TestCase
 
     public function testShow()
     {
-        $factoryData = Urls::factory()->make();
+        $factoryData = Urls::factory()->create();
         $factoryData->save();
-        $response = $this->get(route('urls.show', ['url' => $factoryData]));
+
+        $response = $this->get(route('urls.show', ['url' => $factoryData->id]));
         $response->assertOk();
     }
 
@@ -39,10 +41,26 @@ class UrlsTest extends TestCase
     {
         $factoryData = Urls::factory()->make()->toArray();
         $name = \Arr::only($factoryData, ['name']);
-        $data = ['url' => $name];
-        $response = $this->post(route('urls.store'), $data);
+
+        $response = $this->post(route('urls.store'), ['url' => $name]);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('urls', $data['url']);
+        $this->assertDatabaseHas('urls', $name);
+    }
+
+    public function testChecks()
+    {
+        $data = Urls::factory()->create();
+
+        $response = $this->post(route('check', ['id' => $data->id]));
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect();
+        $this->assertDatabaseHas('url_checks', ['url_id' => $data->id]);
+    }
+
+    public function testHome()
+    {
+        $response = $this->get(route('home'));
+        $response->assertOk();
     }
 }

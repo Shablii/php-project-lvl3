@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Urls;
+use App\Models\UrlChecks;
 use App\Http\Requests\UrlRequest;
 
 class MainController extends Controller
@@ -19,21 +20,29 @@ class MainController extends Controller
 
         return redirect()->route('urlShow', ['id' => $url->id])->with('success', 'Страница успешно добавлена');
     }
+    public function urls()
+    {
+        $urls = new Urls();
+        return view('urls', ['urls' => $urls->all()]);
+    }
+    public function urlShow($id)
+    {
+        $url = new Urls();
+        return view('urlShow', ['url' => $url->find($id)]);
+    }
 
     public function home()
     {
         return view('home');
     }
 
-    public function urls()
+    public function checks($id, UrlChecks $UrlChecks)
     {
-        $urls = new Urls();
-        return view('urls', ['urls' => $urls->all()]);
-    }
+        $UrlChecks->url_id = $id;
+        $UrlChecks->save();
 
-    public function urlShow($id)
-    {
-        $url = new Urls();
-        return view('urlShow', ['url' => $url->find($id)]);
+        return redirect()
+        ->route('urls.show', ['url' => $id])
+        ->with('success', 'Страница успешно проверена');
     }
 }

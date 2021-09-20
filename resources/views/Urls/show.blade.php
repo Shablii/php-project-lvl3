@@ -25,6 +25,31 @@
                 </tr>
             </table>
         </div>
+        <h2 class="mt-5 mb-3">Проверки</h2>
+        <form method="post" action="/urls/{{ $url->id }}/checks">
+            @csrf
+            <input type="submit" class="btn btn-primary" value="Запустить проверку">
+        </form>
+            <table class="table table-bordered table-hover text-nowrap">
+                <tr>
+                    <th>ID</th>
+                    <th>Код ответа</th>
+                    <th>h1</th>
+                    <th>keywords</th>
+                    <th>description</th>
+                    <th>Дата создания</th>
+                </tr>
+                @foreach($urlChecks as $urlCheck)
+                <tr>
+                    <td>{{ $urlCheck->id }}</td>
+                    <td>{{ $urlCheck->status_code }}</td>
+                    <td>{{ $urlCheck->h1 }}</td>
+                    <td>{{ $urlCheck->keywords }}</td>
+                    <td>{{ $urlCheck->description }}</td>
+                    <td>{{ $urlCheck->created_at }}</td>
+                </tr>
+                @endforeach
+            </table>
     </div>
 </main>
 @endsection

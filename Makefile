@@ -1,7 +1,6 @@
 #Makefile
-
-install:
-	composer install
+start:
+	php artisan serve
 lint:
 	composer run-script phpcs -- --standard=PSR12 app tests
 test:
@@ -12,12 +11,12 @@ setup:
 	composer install
 	php -r "file_exists('.env') || copy('.env.example', '.env');"
 	php artisan key:generate
-start:
-	php artisan serve
 deploy:
 	git push heroku main
 
 test_phpunit:
 	composer exec --verbose phpunit tests
+install:
+	composer install
 validate:
 	composer validate

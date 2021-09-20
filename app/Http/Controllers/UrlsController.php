@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Urls;
+use App\Models\UrlChecks;
 use Illuminate\Http\Request;
 use App\Http\Requests\UrlRequest;
+use Illuminate\Support\Facades\DB;
 
 class UrlsController extends Controller
 {
@@ -13,7 +15,7 @@ class UrlsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Urls $url)
+    public function index()
     {
         $urls = Urls::all();
         //return view('urls.index', compact('urls'));
@@ -54,7 +56,13 @@ class UrlsController extends Controller
      */
     public function show(Urls $urls, $id)
     {
-        return view('Urls/show', ['url' => $urls->find($id)]);
+        //$urlChecks = UrlChecks::all();
+        $urlChecks = DB::table('url_checks')->where('url_id', $id)->get();
+
+        return view('Urls/show', [
+            'url' => $urls->find($id),
+            'urlChecks' => $urlChecks
+        ]);
     }
 
     /**
