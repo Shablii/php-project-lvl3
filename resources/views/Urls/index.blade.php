@@ -17,7 +17,7 @@
                     <td>{{ $url->id }}</td>
                     <td><a href="/urls/{{ $url->id }}">{{ $url->name }}</a></td>
                     <td>{{ $url->updated_at }}</td>
-                    <td></td>
+                    <td>{{ $urlChecks->statusCode($url->id) }}</td>
                 </tr>
                 @endforeach
             </table>
@@ -30,9 +30,6 @@
                     <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=4">4</a></li>
                     <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=5">5</a></li>
                     <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=6">6</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=7">7</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=8">8</a></li>
-                    <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=9">9</a></li>
                     <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
                     <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=15">15</a></li>
                     <li class="page-item"><a class="page-link" href="https://php-l3-page-analyzer.herokuapp.com/urls?page=2" rel="next" aria-label="Next &raquo;">&rsaquo;</a></li>

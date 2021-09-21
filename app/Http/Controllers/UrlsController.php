@@ -15,11 +15,14 @@ class UrlsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UrlChecks $urlChecks)
     {
         $urls = Urls::all();
-        //return view('urls.index', compact('urls'));
-        return view('Urls/index', ['urls' => $urls]);
+
+        return view('Urls/index', [
+            'urls' => $urls,
+            'urlChecks' => $urlChecks
+        ]);
     }
 
     /**
@@ -56,7 +59,6 @@ class UrlsController extends Controller
      */
     public function show(Urls $urls, $id)
     {
-        //$urlChecks = UrlChecks::all();
         $urlChecks = DB::table('url_checks')->where('url_id', $id)->get();
 
         return view('Urls/show', [

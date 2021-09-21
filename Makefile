@@ -12,7 +12,7 @@ setup:
 	php -r "file_exists('.env') || copy('.env.example', '.env');"
 	php artisan key:generate
 deploy:
-	git push heroku main
+	git push heroku
 
 test_phpunit:
 	composer exec --verbose phpunit tests

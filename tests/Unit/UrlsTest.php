@@ -48,16 +48,6 @@ class UrlsTest extends TestCase
         $this->assertDatabaseHas('urls', $name);
     }
 
-    public function testChecks()
-    {
-        $data = Urls::factory()->create();
-
-        $response = $this->post(route('check', ['id' => $data->id]));
-        $response->assertSessionHasNoErrors();
-        $response->assertRedirect();
-        $this->assertDatabaseHas('url_checks', ['url_id' => $data->id]);
-    }
-
     public function testHome()
     {
         $response = $this->get(route('home'));

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Urls;
 use App\Models\UrlChecks;
 use App\Http\Requests\UrlRequest;
+use Illuminate\Support\Facades\Http;
 
 class MainController extends Controller
 {
@@ -25,21 +26,19 @@ class MainController extends Controller
         $urls = new Urls();
         return view('urls', ['urls' => $urls->all()]);
     }
-    public function urlShow($id)
-    {
-        $url = new Urls();
-        return view('urlShow', ['url' => $url->find($id)]);
-    }
 
     public function home()
     {
         return view('home');
     }
 
-    public function checks($id, UrlChecks $UrlChecks)
+    public function checks($id, UrlChecks $urlChecks, Urls $url)
     {
-        $UrlChecks->url_id = $id;
-        $UrlChecks->save();
+        $statusCode = Http::get($url->find($id)->name)->getStatusCode();
+
+        $urlChecks->url_id = $id;
+        $urlChecks->status_code = $statusCode;
+        $urlChecks->save();
 
         return redirect()
         ->route('urls.show', ['url' => $id])
