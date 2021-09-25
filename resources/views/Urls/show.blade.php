@@ -39,14 +39,14 @@
                     <th>description</th>
                     <th>Дата создания</th>
                 </tr>
-                @foreach($urlChecks as $urlCheck)
+                @foreach($url->checks->sortByDesc('created_at') as $check)
                 <tr>
-                    <td>{{ $urlCheck->id }}</td>
-                    <td>{{ $urlCheck->status_code }}</td>
-                    <td>{{ $urlCheck->h1 }}</td>
-                    <td>{{ $urlCheck->keywords }}</td>
-                    <td>{{ $urlCheck->description }}</td>
-                    <td>{{ $urlCheck->created_at }}</td>
+                    <td>{{ $check->id }}</td>
+                    <td>{{ $check->status_code }}</td>
+                    <td>{{ $check->h1 }}</td>    
+                    <td>{{ $check->keywords }}</td>
+                    <td>{{ $check->description }}</td>
+                    <td>{{ $check->created_at }}</td>
                 </tr>
                 @endforeach
             </table>

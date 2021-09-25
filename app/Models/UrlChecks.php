@@ -10,6 +10,18 @@ class UrlChecks extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'status_code',
+        'h1',
+        'keywords',
+        'description'
+    ];
+
+    public function urls()
+    {
+        return $this->belongsTo('App\Models\Urls');
+    }
+
     public function statusCode($id)
     {
         $result = DB::table('url_checks')

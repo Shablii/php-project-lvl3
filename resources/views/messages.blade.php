@@ -8,8 +8,9 @@
     </div>
 @endif
 
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
+
+@if(Session::has('flash_message'))
+    <div class="alert alert-{{ session('flash_message')['class'] }}">
+        {{ session('flash_message')['message'] }}
     </div>
 @endif

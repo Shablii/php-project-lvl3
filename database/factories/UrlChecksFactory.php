@@ -21,8 +21,6 @@ class UrlChecksFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'url_id' => $this->faker->randomDigit()
-        ];
+        //
     }
 }

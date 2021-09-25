@@ -13,7 +13,6 @@ class UrlsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        \Artisan::call('migrate');
     }
 
     public function testIndex(): void
@@ -45,7 +44,9 @@ class UrlsTest extends TestCase
         $response = $this->post(route('urls.store'), ['url' => $name]);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('urls', $name);
+
+        $url = parse_url($name['name']);
+        $this->assertDatabaseHas('urls', ['name' => $url['scheme'] . "://" . $url['host']]);
     }
 
     public function testHome()

@@ -14,21 +14,26 @@ class UrlChecksTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        \Artisan::call('migrate');
     }
 
     public function testChecks()
     {
         $data = Urls::factory()->create();
-        var_dump($data->name);
+        $fakeHtml = file_get_contents(__DIR__ . "/../fixtures/fake.html");
 
         Http::fake([
-            $data->name => Http::response('Hello World', 200, ['Headers'])
+            $data->name => Http::response($fakeHtml, 200)
         ]);
 
         $response = $this->post(route('check', ['id' => $data->id]));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('url_checks', ['url_id' => $data->id]);
+        $this->assertDatabaseHas('url_checks', [
+            'url_id' => $data->id,
+            'status_code' => '200',
+            'h1' => 'This is H1',
+            'keywords' => 'There are Keywords',
+            'description' => 'This is Description'
+        ]);
     }
 }

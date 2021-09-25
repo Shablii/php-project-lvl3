@@ -17,7 +17,7 @@ class UrlsController extends Controller
      */
     public function index(UrlChecks $urlChecks)
     {
-        $urls = Urls::all();
+        $urls = Urls::paginate(10);
 
         return view('Urls/index', [
             'urls' => $urls,
@@ -43,12 +43,16 @@ class UrlsController extends Controller
      */
     public function store(UrlRequest $req, Urls $urls)
     {
-        $urls->name = $req->input('url.name');
+        ['scheme' => $scheme, 'host' => $host ] = parse_url($req->input('url.name'));
+        $urls->name = "{$scheme}://{$host}";
         $urls->save();
 
         return redirect()
         ->route('urls.show', $urls)
-        ->with('success', 'Страница успешно добавлена');
+        ->with('flash_message', [
+            'class' => 'success',
+            'message' => 'Страница успешно добавлена'
+        ]);
     }
 
     /**
@@ -59,12 +63,13 @@ class UrlsController extends Controller
      */
     public function show(Urls $urls, $id)
     {
-        $urlChecks = DB::table('url_checks')->where('url_id', $id)->get();
+        $urlChecks = DB::table('url_checks')
+            ->where('url_id', $id)
+            ->orderByDesc('created_at')
+            ->get();
+        $url = $urls->find($id);
 
-        return view('Urls/show', [
-            'url' => $urls->find($id),
-            'urlChecks' => $urlChecks
-        ]);
+        return view('Urls/show', ['url' => $url]);
     }
 
     /**

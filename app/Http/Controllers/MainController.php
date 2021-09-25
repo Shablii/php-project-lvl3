@@ -7,26 +7,12 @@ use App\Models\Urls;
 use App\Models\UrlChecks;
 use App\Http\Requests\UrlRequest;
 use Illuminate\Support\Facades\Http;
+use DiDom\Document;
+use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
-    public function urlsAdd(UrlRequest $req)
-    {
-        $valid = $req->validate([ 'url.name' => 'required|max:255 ']);
-
-        $url = new Urls();
-        $url->name = $req->input('url.name');
-
-        $url->save();
-
-        return redirect()->route('urlShow', ['id' => $url->id])->with('success', 'Страница успешно добавлена');
-    }
-    public function urls()
-    {
-        $urls = new Urls();
-        return view('urls', ['urls' => $urls->all()]);
-    }
-
     public function home()
     {
         return view('home');
@@ -34,14 +20,32 @@ class MainController extends Controller
 
     public function checks($id, UrlChecks $urlChecks, Urls $url)
     {
-        $statusCode = Http::get($url->find($id)->name)->getStatusCode();
+        try {
+            $response = Http::timeout(3)->get($url->find($id)->name);
+            $document = new Document($response->body());
+        } catch (\Exception $exception) {
+            return redirect()
+            ->route('urls.show', ['url' => $id])
+            ->with('flash_message', [
+                'class' => 'danger',
+                'message' => $exception->getMessage()
+            ]);
+        }
 
         $urlChecks->url_id = $id;
-        $urlChecks->status_code = $statusCode;
+        $urlChecks->status_code = $response->status();
+        $urlChecks->h1 = optional($document->first('h1'))->text();
+        $urlChecks->keywords = optional($document->first('meta[name=keywords]'))->attr('content');
+        $urlChecks->description = optional($document->first('meta[name=description]'))->attr('content');
         $urlChecks->save();
+
+        DB::table('urls')->where('id', '=', $id)->update(['updated_at' => now()]);
 
         return redirect()
         ->route('urls.show', ['url' => $id])
-        ->with('success', 'Страница успешно проверена');
+        ->with('flash_message', [
+            'class' => 'info',
+            'message' => 'Страница успешно проверена'
+        ]);
     }
 }

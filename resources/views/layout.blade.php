@@ -1,23 +1,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- CSRF Token -->
-        <meta name="csrf-token" content="PAICDR06H2ZaGeNGSDKrD4yGyR0MufSIOvYykdAV">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
-        <title>Анализатор страниц</title>
-
-        <!-- Scripts -->
-        <script src="https://php-l3-page-analyzer.herokuapp.com/js/app.js" defer></script>
-
-        <!-- Fonts -->
-        <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-        <!-- Styles -->
-        <link href="https://php-l3-page-analyzer.herokuapp.com/css/app.css" rel="stylesheet">
-    </head>
     <body class="min-vh-100 d-flex flex-column">
         <header class="flex-shrink-0">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -39,7 +25,7 @@
                             @if(parse_url(Request::url(), PHP_URL_PATH) === '/urls')
                                 active
                             @endif
-                            " href="/urls">Сайты</a>
+                            "href="/urls">Сайты</a>
                         </li>
                     </ul>
                 </div>
@@ -49,12 +35,5 @@
         @include('messages')
         @yield('content')
 
-        <footer class="border-top py-3 mt-5 flex-shrink-0">
-            <div class="container-lg">
-                <div class="text-center">
-                    <a href="https://hexlet.io/pages/about" target="_blank">Hexlet</a>
-                </div>
-            </div>
-        </footer>
     </body>
 </html>
