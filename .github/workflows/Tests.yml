@@ -1,4 +1,4 @@
-name: TestsLar
+name: TestProject
 
 on:
   push:
@@ -11,10 +11,10 @@ jobs:
     runs-on: macos-latest
     
     steps:
-      - name: upload_repo
+      - name: Upload repository
         uses: actions/checkout@v2
 
-      - name: sepup
+      - name: Sepup
         run: make setup
 
       - name: Check lint
