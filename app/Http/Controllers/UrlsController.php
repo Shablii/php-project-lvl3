@@ -48,7 +48,7 @@ class UrlsController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors("Некорректный URL: $url");
+            return back()->withErrors($validator);
             //return back()->with('errors', "Некорректный URL: $url");
         }
 
