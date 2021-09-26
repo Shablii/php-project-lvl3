@@ -38,13 +38,18 @@ class UrlsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UrlRequest $req, Urls $urls)
+    public function store(Request $req, Urls $urls)
     {
+        $validated = $req->validate(['name' => 'required|max:255|url']);
+
         ['scheme' => $scheme, 'host' => $host ] = parse_url($req->input('url.name'));
         $name = "{$scheme}://{$host}";
 
         if (DB::table('urls')->where('name', '=', $name)->exists()) {
-            $id = DB::table('urls')->where('name', '=', $name)->value('id');
+            $id = DB::table('urls')
+            ->where('name', '=', $name)
+            ->value('id');
+
             return redirect()
             ->route('urls.show', $id)
             ->with('flash_message', [

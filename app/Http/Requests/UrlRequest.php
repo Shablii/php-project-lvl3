@@ -23,9 +23,7 @@ class UrlRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'url.name' => 'required|max:255|url'
-        ];
+        return ['url.name' => 'required|max:255|url'];
     }
 
     public function messages()

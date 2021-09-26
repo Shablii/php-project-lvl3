@@ -15,16 +15,12 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link 
-                            @if(parse_url(Request::url(), PHP_URL_PATH) !== '/urls')
-                                active
-                            @endif
+                            {{ request()->routeIs('home') ? 'active' : '' }}
                             " href="/">Главная</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link
-                            @if(parse_url(Request::url(), PHP_URL_PATH) === '/urls')
-                                active
-                            @endif
+                            {{ request()->routeIs('urls.show', 'urls.index') ? 'active' : '' }}
                             "href="/urls">Сайты</a>
                         </li>
                     </ul>
