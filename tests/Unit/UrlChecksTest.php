@@ -25,11 +25,11 @@ class UrlChecksTest extends TestCase
     public function testChecks(): void
     {
         $fakeHtml = file_get_contents(__DIR__ . "/../fixtures/fake.html");
+        $fakeHtml = (string) $fakeHtml;
+        $name = DB::table('urls')->where('id', '=', $this->id)->value('name');
 
-        //$name = DB::table('urls')->where('id', '=', $this->id)->value('name');
-
-        //Http::fake([ $name => Http::response($fakeHtml, 200) ]);
-        Http::fake(fn($request) => Http::response($fakeHtml, 200));
+        Http::fake([ $name => Http::response($fakeHtml, 200) ]);
+        //Http::fake(fn($request) => Http::response((string) $fakeHtml, 200));
 
         $response = $this->post(route('check', ['id' => $this->id]));
         $response->assertSessionHasNoErrors();
