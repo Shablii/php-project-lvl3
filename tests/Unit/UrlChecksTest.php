@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Models\Urls;
 use App\Models\UrlChecks;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
 
 class UrlChecksTest extends TestCase
 {
@@ -21,8 +22,10 @@ class UrlChecksTest extends TestCase
         $data = Urls::factory()->create();
         $fakeHtml = file_get_contents(__DIR__ . "/../fixtures/fake.html");
 
+        $name = DB::table('urls')->where('id', '=', $data->id)->value('name');
+
         Http::fake([
-            $data->name => Http::response($fakeHtml, 200)
+            $name => Http::response($fakeHtml, 200)
         ]);
 
         $response = $this->post(route('check', ['id' => $data->id]));

@@ -17,7 +17,7 @@ class UrlChecks extends Model
         'description'
     ];
 
-    public function urls(): Urls
+    public function urls(): App\Models\Urls
     {
         return $this->belongsTo('App\Models\Urls');
     }

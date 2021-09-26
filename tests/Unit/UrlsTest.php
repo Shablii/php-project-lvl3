@@ -21,13 +21,13 @@ class UrlsTest extends TestCase
         $response->assertOk();
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $response = $this->get(route('urls.create'));
         $response->assertOk();
     }
 
-    public function testShow()
+    public function testShow(): void
     {
         $factoryData = Urls::factory()->create();
         $factoryData->save();
@@ -36,7 +36,7 @@ class UrlsTest extends TestCase
         $response->assertOk();
     }
 
-    public function testStore()
+    public function testStore(): void
     {
         $factoryData = Urls::factory()->make()->toArray();
         $name = \Arr::only($factoryData, ['name']);
@@ -49,7 +49,7 @@ class UrlsTest extends TestCase
         $this->assertDatabaseHas('urls', ['name' => $url['scheme'] . "://" . $url['host']]);
     }
 
-    public function testHome()
+    public function testHome(): void
     {
         $response = $this->get(route('home'));
         $response->assertOk();

@@ -12,7 +12,7 @@ class Urls extends Model
 
     protected $fillable = ['name'];
 
-    public function checks(): Urls
+    public function urlChecks(): \App\Models\Urls
     {
         return $this->hasMany('App\Models\UrlChecks', 'url_id');
     }
