@@ -17,12 +17,12 @@ class UrlChecks extends Model
         'description'
     ];
 
-    public function urls()
+    public function urls(): array
     {
         return $this->belongsTo('App\Models\Urls');
     }
 
-    public function statusCode($id)
+    public function statusCode($id): array
     {
         $result = DB::table('url_checks')
         ->where('url_id', $id)

@@ -8,48 +8,34 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UrlRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class UrlsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         $urls = Urls::paginate(10);
 
         return view('Urls/index', ['urls' => $urls]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
         return view('home');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $req, Urls $urls)
+    public function store(Request $req, Urls $urls): RedirectResponse
     {
         $url = $req->input('url.name');
-        //$validated = $req->validate(['url.name' => 'required|max:255|url']);
-        $validator = Validator::make($req->input('url'), [
-            'name' => ['required', 'url', 'max:255']
-        ]);
+        $errors = $req->validate(['url.name' => 'required|max:255|url']);
+        //$validator = Validator::make($req->input('url'), [
+        //    'name' => ['required', 'url', 'max:255']
+        //]);
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-            //return back()->with('errors', "Некорректный URL: $url");
+        if (!$errors) {
+            dd($errors);
+            return back()->withErrors($errors);
         }
 
         ['scheme' => $scheme, 'host' => $host ] = parse_url($req->input('url.name'));
@@ -78,13 +64,7 @@ class UrlsController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Urls  $urls
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Urls $urls, $id)
+    public function show(Urls $urls, $id): View
     {
         $urlChecks = DB::table('url_checks')
             ->where('url_id', $id)

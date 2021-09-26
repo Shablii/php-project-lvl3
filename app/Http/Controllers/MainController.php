@@ -8,15 +8,17 @@ use App\Models\UrlChecks;
 use Illuminate\Support\Facades\Http;
 use DiDom\Document;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class MainController extends Controller
 {
-    public function home()
+    public function home(): View
     {
         return view('home');
     }
 
-    public function checks($id, UrlChecks $urlChecks, Urls $url)
+    public function checks($id, UrlChecks $urlChecks, Urls $url): RedirectResponse
     {
         try {
             $response = Http::timeout(3)->get($url->find($id)->name);
