@@ -12,12 +12,12 @@ class Urls extends Model
 
     protected $fillable = ['name'];
 
-    public function checks()
+    public function checks(): Urls
     {
         return $this->hasMany('App\Models\UrlChecks', 'url_id');
     }
 
-    public function statusCode($id)
+    public function statusCode(int $id): array
     {
         $result = DB::table('url_checks')
         ->where('url_id', $id)

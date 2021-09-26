@@ -16,7 +16,7 @@ class UrlChecksTest extends TestCase
         parent::setUp();
     }
 
-    public function testChecks()
+    public function testChecks(): void
     {
         $data = Urls::factory()->create();
         $fakeHtml = file_get_contents(__DIR__ . "/../fixtures/fake.html");

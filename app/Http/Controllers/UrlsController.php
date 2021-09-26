@@ -63,48 +63,18 @@ class UrlsController extends Controller
         ]);
     }
 
-    public function show(Urls $urls, $id): View
+    public function show(Urls $urls, int $id): View
     {
-        $urlChecks = DB::table('url_checks')
+        $checks = DB::table('url_checks')
             ->where('url_id', $id)
             ->orderByDesc('created_at')
             ->get();
-        $url = $urls->find($id);
 
-        return view('Urls/show', ['url' => $url]);
-    }
+        $url = DB::table('urls')->find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Urls  $urls
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Urls $urls)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Urls  $urls
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Urls $urls)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Urls  $urls
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Urls $urls)
-    {
-        //
+        return view('Urls/show', [
+            'url' => $url,
+            'checks' => $checks
+        ]);
     }
 }

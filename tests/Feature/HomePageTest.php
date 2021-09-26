@@ -7,16 +7,9 @@ use Tests\TestCase;
 
 class HomePageTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-
-    public function testHomePage()
+    public function testHome(): void
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $response = $this->get(route('home'));
+        $response->assertOk();
     }
 }

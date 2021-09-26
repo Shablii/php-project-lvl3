@@ -39,7 +39,7 @@
                     <th>description</th>
                     <th>Дата создания</th>
                 </tr>
-                @foreach($url->checks->sortByDesc('created_at') as $check)
+                @foreach($checks as $check)
                 <tr>
                     <td>{{ $check->id }}</td>
                     <td>{{ $check->status_code }}</td>

@@ -18,7 +18,7 @@ class MainController extends Controller
         return view('home');
     }
 
-    public function checks($id, UrlChecks $urlChecks, Urls $url): RedirectResponse
+    public function checks(int $id, UrlChecks $urlChecks, Urls $url): RedirectResponse
     {
         try {
             $response = Http::timeout(3)->get($url->find($id)->name);

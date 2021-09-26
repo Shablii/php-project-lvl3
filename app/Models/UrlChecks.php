@@ -17,18 +17,8 @@ class UrlChecks extends Model
         'description'
     ];
 
-    public function urls(): array
+    public function urls(): Urls
     {
         return $this->belongsTo('App\Models\Urls');
-    }
-
-    public function statusCode($id): array
-    {
-        $result = DB::table('url_checks')
-        ->where('url_id', $id)
-        ->orderBy('updated_at', 'desc')
-        ->limit(1)
-        ->first();
-        return $result->status_code ?? null;
     }
 }
