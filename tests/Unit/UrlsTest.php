@@ -15,9 +15,7 @@ class UrlsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $data = [
-            'name' => 'https://google.com.ua'
-        ];
+        $data = [ 'name' => 'https://google.com.ua' ];
         $this->id = DB::table('urls')->insertGetId($data);
     }
 
