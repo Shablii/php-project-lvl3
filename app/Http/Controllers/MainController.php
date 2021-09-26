@@ -8,7 +8,6 @@ use App\Models\UrlChecks;
 use App\Http\Requests\UrlRequest;
 use Illuminate\Support\Facades\Http;
 use DiDom\Document;
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller

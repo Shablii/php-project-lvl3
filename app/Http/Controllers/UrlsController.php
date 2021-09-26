@@ -15,14 +15,11 @@ class UrlsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UrlChecks $urlChecks)
+    public function index()
     {
         $urls = Urls::paginate(10);
 
-        return view('Urls/index', [
-            'urls' => $urls,
-            'urlChecks' => $urlChecks
-        ]);
+        return view('Urls/index', ['urls' => $urls]);
     }
 
     /**
@@ -44,11 +41,22 @@ class UrlsController extends Controller
     public function store(UrlRequest $req, Urls $urls)
     {
         ['scheme' => $scheme, 'host' => $host ] = parse_url($req->input('url.name'));
-        $urls->name = "{$scheme}://{$host}";
+        $name = "{$scheme}://{$host}";
+
+        if (DB::table('urls')->where('name', '=', $name)->exists()) {
+            $id = DB::table('urls')->where('name', '=', $name)->value('id');
+            return redirect()
+            ->route('urls.show', $id)
+            ->with('flash_message', [
+                'class' => 'info',
+                'message' => 'Страница уже существует'
+            ]);
+        }
+        $urls->name = $name;
         $urls->save();
 
         return redirect()
-        ->route('urls.show', $urls)
+        ->route('urls.show', $urls->id)
         ->with('flash_message', [
             'class' => 'success',
             'message' => 'Страница успешно добавлена'

@@ -17,7 +17,7 @@
                     <td>{{ $url->id }}</td>
                     <td><a href="/urls/{{ $url->id }}">{{ $url->name }}</a></td>
                     <td>{{ $url->updated_at }}</td>
-                    <td>{{ $urlChecks->statusCode($url->id) }}</td>
+                    <td>{{ $url->statusCode($url->id) }}</td>
                 </tr>
                 @endforeach
             </table>

@@ -24,7 +24,7 @@ class UrlRequest extends FormRequest
     public function rules()
     {
         return [
-            'url.name' => 'required|max:255|unique:urls,name|url'
+            'url.name' => 'required|max:255|url'
         ];
     }
 
