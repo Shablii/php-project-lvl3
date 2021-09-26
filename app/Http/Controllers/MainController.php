@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Urls;
 use App\Models\UrlChecks;
-use App\Http\Requests\UrlRequest;
 use Illuminate\Support\Facades\Http;
 use DiDom\Document;
 use Illuminate\Support\Facades\DB;

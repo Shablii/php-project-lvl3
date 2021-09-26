@@ -7,6 +7,7 @@ use App\Models\UrlChecks;
 use Illuminate\Http\Request;
 use App\Http\Requests\UrlRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class UrlsController extends Controller
 {
@@ -40,7 +41,10 @@ class UrlsController extends Controller
      */
     public function store(Request $req, Urls $urls)
     {
-        $validated = $req->validate(['url.name' => 'required|max:255|url']);
+        //$validated = $req->validate(['url.name' => 'required|max:255|url']);
+        $validator = Validator::make($req->input('url'), [
+            'name' => ['required', 'url', 'max:255']
+        ]);
 
         ['scheme' => $scheme, 'host' => $host ] = parse_url($req->input('url.name'));
         $name = "{$scheme}://{$host}";
