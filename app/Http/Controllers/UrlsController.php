@@ -28,14 +28,13 @@ class UrlsController extends Controller
     public function store(Request $req, Urls $urls): RedirectResponse
     {
         $url = $req->input('url.name');
-        $errors = $req->validate(['url.name' => 'required|max:255|url']);
-        //$validator = Validator::make($req->input('url'), [
-        //    'name' => ['required', 'url', 'max:255']
-        //]);
 
-        if (!$errors) {
-            dd($errors);
-            return back()->withErrors($errors);
+        $validator = Validator::make($req->input('url'), [
+            'name' => ['required', 'url', 'max:255']
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
         }
 
         ['scheme' => $scheme, 'host' => $host ] = parse_url($req->input('url.name'));
