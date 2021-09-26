@@ -10,14 +10,14 @@ class Urls extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    //protected $fillable = ['name'];
 
-    public function urlChecks(): \App\Models\Urls
-    {
-        return $this->hasMany('App\Models\UrlChecks', 'url_id');
-    }
+    //public function urlChecks(): \App\Models\Urls
+    //{
+    //    return $this->hasMany('App\Models\UrlChecks', 'url_id');
+    //}
 
-    public function statusCode(int $id): array
+    public function statusCode(int $id): int | null
     {
         $result = DB::table('url_checks')
         ->where('url_id', $id)

@@ -18,10 +18,12 @@ class MainController extends Controller
         return view('home');
     }
 
-    public function checks(int $id, UrlChecks $urlChecks, Urls $url): RedirectResponse
+    public function checks(int $id, UrlChecks $urlChecks): RedirectResponse
     {
+        $url = DB::table('urls')->find($id);
+
         try {
-            $response = Http::timeout(3)->get($url->find($id)->name);
+            $response = Http::timeout(3)->get($url->name);
             $document = new Document($response->body());
         } catch (\Exception $exception) {
             return redirect()

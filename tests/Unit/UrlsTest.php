@@ -7,12 +7,18 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Urls;
 use App\Models\UrlChecks;
+use Illuminate\Support\Facades\DB;
 
 class UrlsTest extends TestCase
 {
+    public $id;
     public function setUp(): void
     {
         parent::setUp();
+        $data = [
+            'name' => 'https://google.com.ua'
+        ];
+        $this->id = DB::table('urls')->insertGetId($data);
     }
 
     public function testIndex(): void
@@ -29,10 +35,7 @@ class UrlsTest extends TestCase
 
     public function testShow(): void
     {
-        $factoryData = Urls::factory()->create();
-        $factoryData->save();
-
-        $response = $this->get(route('urls.show', ['url' => $factoryData->id]));
+        $response = $this->get(route('urls.show', ['url' => $this->id]));
         $response->assertOk();
     }
 

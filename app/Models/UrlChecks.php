@@ -10,15 +10,15 @@ class UrlChecks extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'status_code',
-        'h1',
-        'keywords',
-        'description'
-    ];
+    //protected $fillable = [
+    //    'status_code',
+    //    'h1',
+    //    'keywords',
+    //    'description'
+    //];
 
-    public function urls(): App\Models\Urls
-    {
-        return $this->belongsTo('App\Models\Urls');
-    }
+    //public function urls()
+    //{
+    //    return $this->belongsTo('App\Models\Urls');
+    //}
 }
