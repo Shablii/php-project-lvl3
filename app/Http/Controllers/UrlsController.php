@@ -40,7 +40,7 @@ class UrlsController extends Controller
      */
     public function store(Request $req, Urls $urls)
     {
-        $validated = $req->validate(['name' => 'required|max:255|url']);
+        $validated = $req->validate(['url.name' => 'required|max:255|url']);
 
         ['scheme' => $scheme, 'host' => $host ] = parse_url($req->input('url.name'));
         $name = "{$scheme}://{$host}";
