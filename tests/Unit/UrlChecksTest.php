@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class UrlChecksTest extends TestCase
 {
-    public $id;
+    public int $id;
     public function setUp(): void
     {
         parent::setUp();
@@ -26,9 +26,10 @@ class UrlChecksTest extends TestCase
     {
         $fakeHtml = file_get_contents(__DIR__ . "/../fixtures/fake.html");
 
-        $name = DB::table('urls')->where('id', '=', $this->id)->value('name');
+        //$name = DB::table('urls')->where('id', '=', $this->id)->value('name');
 
-        Http::fake([ $name => Http::response($fakeHtml, 200) ]);
+        //Http::fake([ $name => Http::response($fakeHtml, 200) ]);
+        Http::fake(fn($request) => Http::response($fakeHtml, 200));
 
         $response = $this->post(route('check', ['id' => $this->id]));
         $response->assertSessionHasNoErrors();

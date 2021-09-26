@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class UrlsTest extends TestCase
 {
-    public $id;
+    public int $id;
     public function setUp(): void
     {
         parent::setUp();
