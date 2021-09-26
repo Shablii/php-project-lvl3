@@ -14,3 +14,10 @@
         {{ session('flash_message')['message'] }}
     </div>
 @endif
+
+@if(Session::has('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
