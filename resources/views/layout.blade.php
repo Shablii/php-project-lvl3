@@ -16,12 +16,12 @@
                         <li class="nav-item">
                             <a class="nav-link 
                             {{ request()->routeIs('home') ? 'active' : '' }}
-                            " href="/">Главная</a>
+                            " href="{{ route('home') }}">Главная</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link
                             {{ request()->routeIs('urls.show', 'urls.index') ? 'active' : '' }}
-                            "href="/urls">Сайты</a>
+                            "href="{{ route('urls.index') }}">Сайты</a>
                         </li>
                     </ul>
                 </div>

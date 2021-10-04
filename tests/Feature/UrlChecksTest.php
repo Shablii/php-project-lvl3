@@ -16,7 +16,7 @@ class UrlChecksTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $data = [ 'name' => 'https://google.com.ua' ];
+        $data = ['name' => 'https://google.com.ua'];
         $this->id = DB::table('urls')->insertGetId($data);
     }
 
@@ -25,9 +25,9 @@ class UrlChecksTest extends TestCase
         $fakeHtml = file_get_contents(__DIR__ . "/../fixtures/fake.html");
         $name = DB::table('urls')->where('id', '=', $this->id)->value('name');
 
-        Http::fake([ $name => Http::response((string) $fakeHtml, 200) ]);
+        Http::fake([$name => Http::response((string) $fakeHtml, 200)]);
 
-        $response = $this->post(route('check', ['id' => $this->id]));
+        $response = $this->post(route('check', $this->id));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
         $this->assertDatabaseHas('url_checks', [

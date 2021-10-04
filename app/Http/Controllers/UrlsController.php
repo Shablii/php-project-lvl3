@@ -11,6 +11,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
 use DiDom\Document;
+use Illuminate\Http\Client\HttpClientException;
 
 class UrlsController extends Controller
 {
@@ -28,12 +29,10 @@ class UrlsController extends Controller
 
     public function store(Request $request, Urls $urls): RedirectResponse
     {
-        $url = $request->input('url.name');
-
         $validator = Validator::make($request->input('url'), [
             'name' => ['required', 'url', 'max:255']
         ]);
-        $url = ['name' => 'test'];
+
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
@@ -86,7 +85,7 @@ class UrlsController extends Controller
         try {
             $response = Http::timeout(3)->get($url->name);
             $document = new Document($response->body());
-        } catch (\Exception $exception) {
+        } catch (HttpClientException $exception) {
             return redirect()
             ->route('urls.show', ['url' => $id])
             ->with('flash_message', [

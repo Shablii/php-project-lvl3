@@ -15,7 +15,7 @@ class UrlsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $data = [ 'name' => 'https://google.com.ua' ];
+        $data = ['name' => 'https://google.com.ua'];
         $this->id = DB::table('urls')->insertGetId($data);
     }
 
@@ -33,7 +33,7 @@ class UrlsTest extends TestCase
 
     public function testShow(): void
     {
-        $response = $this->get(route('urls.show', ['url' => $this->id]));
+        $response = $this->get(route('urls.show', $this->id));
         $response->assertOk();
     }
 
