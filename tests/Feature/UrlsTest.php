@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Urls;
-use App\Models\UrlChecks;
 use Illuminate\Support\Facades\DB;
 
 class UrlsTest extends TestCase
@@ -39,15 +37,11 @@ class UrlsTest extends TestCase
 
     public function testStore(): void
     {
-        $factoryData = Urls::factory()->make()->toArray();
-        $name = \Arr::only($factoryData, ['name']);
-
+        $name = ['name' => 'http://i.ua'];
         $response = $this->post(route('urls.store'), ['url' => $name]);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-
-        $url = parse_url($name['name']);
-        $this->assertDatabaseHas('urls', ['name' => $url['scheme'] . "://" . $url['host']]);
+        $this->assertDatabaseHas('urls', $name);
     }
 
     public function testHome(): void

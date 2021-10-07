@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Urls;
-use App\Models\UrlChecks;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 

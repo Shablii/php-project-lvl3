@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Urls;
-use App\Models\UrlChecks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -17,9 +15,13 @@ class UrlsController extends Controller
 {
     public function index(): View
     {
-        $urls = Urls::paginate(10);
+        $urls = DB::table('urls')->orderBy('id')->paginate(10);
+        $checks = DB::table('url_checks')
+            ->orderBy('updated_at')
+            ->get()
+            ->keyBy('url_id');
 
-        return view('Urls/index', ['urls' => $urls]);
+        return view('Urls/index', ['urls' => $urls, 'checks' => $checks]);
     }
 
     public function create(): View
@@ -27,7 +29,7 @@ class UrlsController extends Controller
         return view('home');
     }
 
-    public function store(Request $request, Urls $urls): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $validator = Validator::make($request->input('url'), [
             'name' => ['required', 'url', 'max:255']
@@ -52,18 +54,18 @@ class UrlsController extends Controller
                 'message' => 'Страница уже существует'
             ]);
         }
-        $urls->name = $name;
-        $urls->save();
+
+        $id = DB::table('urls')->insertGetId(['name' => $name]);
 
         return redirect()
-        ->route('urls.show', $urls->id)
+        ->route('urls.show', $id)
         ->with('flash_message', [
             'class' => 'success',
             'message' => 'Страница успешно добавлена'
         ]);
     }
 
-    public function show(Urls $urls, int $id): View
+    public function show(int $id): View
     {
         $checks = DB::table('url_checks')
             ->where('url_id', $id)
@@ -78,7 +80,7 @@ class UrlsController extends Controller
         ]);
     }
 
-    public function checks(int $id, UrlChecks $urlChecks): RedirectResponse
+    public function checks(int $id): RedirectResponse
     {
         $url = DB::table('urls')->find($id);
 
@@ -94,12 +96,15 @@ class UrlsController extends Controller
             ]);
         }
 
-        $urlChecks->url_id = $id;
-        $urlChecks->status_code = $response->status();
-        $urlChecks->h1 = optional($document->first('h1'))->text();
-        $urlChecks->keywords = optional($document->first('meta[name=keywords]'))->attr('content');
-        $urlChecks->description = optional($document->first('meta[name=description]'))->attr('content');
-        $urlChecks->save();
+        DB::table('url_checks')->insert([
+            'url_id' => $id,
+            'status_code' => $response->status(),
+            'h1' => optional($document->first('h1'))->text(),
+            'keywords' => optional($document->first('meta[name=keywords]'))->attr('content'),
+            'description' => optional($document->first('meta[name=description]'))->attr('content'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
         DB::table('urls')->where('id', '=', $id)->update(['updated_at' => now()]);
 
