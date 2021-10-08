@@ -4,10 +4,9 @@
     </div>
 @endif
 
-@if(Session::has('error'))
+@if(Session::has('errors'))
     <div class="alert alert-danger">
-        {{ session('error') }}
-        test
+        {{ session('errors') }}
     </div>
 @endif
 
