@@ -36,7 +36,8 @@ class UrlsController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors("Некорректный URL: {$request->input('url.name')}");
+            flash("Некорректный URL: {$request->input('url.name')}")->error();
+            return back();
         }
 
         ['scheme' => $scheme, 'host' => $host ] = parse_url($request->input('url.name'));
@@ -47,22 +48,14 @@ class UrlsController extends Controller
             ->where('name', '=', $name)
             ->value('id');
 
-            return redirect()
-            ->route('urls.show', $id)
-            ->with('flash_message', [
-                'class' => 'info',
-                'message' => 'Страница уже существует'
-            ]);
+            flash('Страница успешно добавлена')->info();
+            return redirect()->route('urls.show', $id);
         }
 
         $id = DB::table('urls')->insertGetId(['name' => $name]);
 
-        return redirect()
-        ->route('urls.show', $id)
-        ->with('flash_message', [
-            'class' => 'success',
-            'message' => 'Страница успешно добавлена'
-        ]);
+        flash('Страница успешно добавлена')->success();
+        return redirect()->route('urls.show', $id);
     }
 
     public function show(int $id): View

@@ -28,7 +28,7 @@
             </nav>
         </header>
 
-        @include('messages')
+        @include('flash::message')
         @yield('content')
 
     </body>
