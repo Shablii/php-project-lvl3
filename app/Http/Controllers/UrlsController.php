@@ -36,7 +36,7 @@ class UrlsController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors($validator);
+            return back()->withErrors("Некорректный URL: {$request->input('url.name')}");
         }
 
         ['scheme' => $scheme, 'host' => $host ] = parse_url($request->input('url.name'));
