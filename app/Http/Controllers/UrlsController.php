@@ -81,12 +81,8 @@ class UrlsController extends Controller
             $response = Http::timeout(3)->get($url->name);
             $document = new Document($response->body());
         } catch (HttpClientException $exception) {
-            return redirect()
-            ->route('urls.show', ['url' => $id])
-            ->with('flash_message', [
-                'class' => 'danger',
-                'message' => $exception->getMessage()
-            ]);
+            flash($exception->getMessage())->error();
+            return redirect()->route('urls.show', $id);
         }
 
         DB::table('url_checks')->insert([
@@ -101,11 +97,8 @@ class UrlsController extends Controller
 
         DB::table('urls')->where('id', '=', $id)->update(['updated_at' => now()]);
 
+        flash("Страница успешно проверена")->info();
         return redirect()
-        ->route('urls.show', ['url' => $id])
-        ->with('flash_message', [
-            'class' => 'info',
-            'message' => 'Страница успешно проверена'
-        ]);
+        ->route('urls.show', $id);
     }
 }
