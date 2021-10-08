@@ -31,8 +31,8 @@ class UrlsController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $validator = Validator::make($request->input('url'), [
-            'name' => ['required', 'url', 'max:255']
+        $validator = Validator::make($request->all(), [
+            'url.name' => ['required', 'url', 'max:255']
         ]);
 
         if ($validator->fails()) {
