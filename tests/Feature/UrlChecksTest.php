@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
@@ -21,11 +19,16 @@ class UrlChecksTest extends TestCase
     public function testChecks(): void
     {
         $fakeHtml = file_get_contents(__DIR__ . "/../fixtures/fake.html");
+
+        if (!$fakeHtml) {
+            throw new \Exception('Не получилось прочитать файл');
+        }
+
         $name = DB::table('urls')->where('id', '=', $this->id)->value('name');
 
         Http::fake([$name => Http::response((string) $fakeHtml, 200)]);
 
-        $response = $this->post(route('check', $this->id));
+        $response = $this->post(route('urls.checks.store', $this->id));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
         $this->assertDatabaseHas('url_checks', [

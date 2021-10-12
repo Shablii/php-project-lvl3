@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 
@@ -17,22 +15,13 @@ class UrlsTest extends TestCase
         $this->id = DB::table('urls')->insertGetId($data);
     }
 
-    public function testIndex(): void
-    {
-        $response = $this->get(route('urls.create'));
-        $response->assertOk();
-    }
-
-    public function testCreate(): void
-    {
-        $response = $this->get(route('urls.create'));
-        $response->assertOk();
-    }
-
     public function testShow(): void
     {
         $response = $this->get(route('urls.show', $this->id));
-        $response->assertOk();
+
+        $url = DB::table('urls')->find($this->id)->name;
+
+        $response->assertSee($url);
     }
 
     public function testStore(): void
