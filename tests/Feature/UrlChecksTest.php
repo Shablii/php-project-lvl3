@@ -20,13 +20,13 @@ class UrlChecksTest extends TestCase
     {
         $fakeHtml = file_get_contents(__DIR__ . "/../fixtures/fake.html");
 
-        if (!$fakeHtml) {
+        if ($fakeHtml === false) {
             throw new \Exception('Не получилось прочитать файл');
         }
 
         $name = DB::table('urls')->where('id', '=', $this->id)->value('name');
 
-        Http::fake([$name => Http::response((string) $fakeHtml, 200)]);
+        Http::fake([$name => Http::response($fakeHtml, 200)]);
 
         $response = $this->post(route('urls.checks.store', $this->id));
         $response->assertSessionHasNoErrors();
