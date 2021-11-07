@@ -10,6 +10,7 @@ class UrlChecksTest extends TestCase
 {
     public int $id;
     public function setUp(): void
+
     {
         parent::setUp();
         $data = ['name' => 'https://google.com.ua'];
@@ -26,7 +27,7 @@ class UrlChecksTest extends TestCase
 
         $name = DB::table('urls')->where('id', '=', $this->id)->value('name');
 
-        Http::fake([$name => Http::response($fakeHtml, 200)]);
+        Http::fake([$name => Http::response($fakeHtml)]);
 
         $response = $this->post(route('urls.checks.store', $this->id));
         $response->assertSessionHasNoErrors();
