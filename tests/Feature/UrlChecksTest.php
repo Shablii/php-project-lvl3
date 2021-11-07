@@ -10,7 +10,6 @@ class UrlChecksTest extends TestCase
 {
     public int $id;
     public function setUp(): void
-
     {
         parent::setUp();
         $data = ['name' => 'https://google.com.ua'];
